@@ -43,3 +43,19 @@ spec:
               secretKeyRef:
                 name: mongodb-secret
                 key: mongo-root-password
+--- # Create new document.
+apiVersion: v1
+# Create a Service document.
+kind: Service
+metadata:
+# Call it mongodb-service.
+  name: mongodb-service
+spec:
+# The Service will choose the pod from the app 'mongodb' 
+  selector:
+    app: mongodb
+# The Service will listen to the pod's containerPort 
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017

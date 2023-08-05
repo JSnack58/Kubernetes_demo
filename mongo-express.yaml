@@ -49,7 +49,22 @@ spec:
                   configMapKeyRef:
                     name: mongodb-configmap
                     key: database_url
-
+---
+# Create External Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service
+spec:
+  selector:
+    app: mongo-express
+  type: LoadBalancer
+  ports:
+    # External Service needs two ports for the internal and external IP address.
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30000
 
 
                
